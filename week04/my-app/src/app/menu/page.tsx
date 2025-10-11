@@ -19,7 +19,7 @@ export default function MenuPage() {
 
   return (
     <div>
-      <h1>🍽 이대생을 위한 랜덤 메뉴 추천</h1>
+      <h1>🍽 오늘의 메뉴 추천</h1>
       <p>제작자 취향 반영 메뉴 리스트</p>
 
       <div
