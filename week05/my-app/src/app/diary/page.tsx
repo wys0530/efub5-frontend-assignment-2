@@ -99,18 +99,24 @@ type Entry = {
 
 function Diary() {
   const [text, setText] = useState("");
-  const [entries, setEntries] = useState<Entry[]>(() => {
-    const saved = localStorage.getItem("diary_entries");
-    return saved ? JSON.parse(saved) : [];
-  });
+  const [entries, setEntries] = useState<Entry[]>([]);
+
+  useEffect(() => {
+    try {
+      const saved = window.localStorage.getItem("diary_entries");
+      if (saved) setEntries(JSON.parse(saved) as Entry[]);
+    } catch {}
+  }, []);
+
+  useEffect(() => {
+    try {
+      window.localStorage.setItem("diary_entries", JSON.stringify(entries));
+    } catch {}
+  }, [entries]);
 
   const handleRemove = (id: number) => {
     setEntries(entries.filter((entry) => entry.id !== id));
   };
-
-  useEffect(() => {
-    localStorage.setItem("diary_entries", JSON.stringify(entries));
-  }, [entries]);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
