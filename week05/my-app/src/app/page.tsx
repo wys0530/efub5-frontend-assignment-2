@@ -27,15 +27,18 @@ const GotoDiary = styled.button`
   color: rgb(255, 170, 217);
   background: rgb(255, 255, 255);
   padding: 8px;
+  width: 10rem;
 
   &:hover {
     background: rgb(255, 170, 217);
   }
 `;
 
-// 로컬 스토리지: 브라우저를 껐다 켜도 저장되어있음.
-// 이걸 하려면?
-// 1. 앱이 로딩될 때 localStorage에서 todos를 불러온다. 2. todos가 변경될 때마다 localStorage에 저장한다.
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
 const LOCAL_STORAGE_KEY = "todos_dom";
 
 type Todo = {
@@ -48,18 +51,20 @@ type TodoFilter = "all" | "done" | "undone";
 
 function App() {
   const [todofilter, setTodofilter] = useState<TodoFilter>("all"); // all, done , undone 상태 중 전체 보기를 초기값으로 설정
-  const [todos, setTodos] = useState<Todo[]>(() => {
-    const savedTodos = localStorage.getItem(LOCAL_STORAGE_KEY);
-    //getItem(key)는 키에 해당하는 값을 받아옴. 저장된 값 로딩! (1번과정)
-    //우리가 설정한 키(todos)에 해당하는 값을 받아옴.
-    return savedTodos ? JSON.parse(savedTodos) : TODO_LIST;
-    //savedTodos가 없으면 더미데이터 반환, 있으면 이 데이터를 배열로 변환함
-    //(TODO_LIST 대신 [] 을 쓰면 빈 배열(빈 내용) 반환할 수 있음)
-  });
+  const [todos, setTodos] = useState<Todo[]>(TODO_LIST);
 
   useEffect(() => {
-    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(todos)); //JSON.stringify: 자바스크립트의 데이터를 문자열로 바꿈
-  }, [todos]); //의존성 배열 todos의 내용물이 바뀔때마다 setItem 호출: todo(key), 값(todos의 값을 문자열로 바꾼 결과)
+    try {
+      const saved = window.localStorage.getItem(LOCAL_STORAGE_KEY);
+      if (saved) setTodos(JSON.parse(saved) as Todo[]);
+    } catch {}
+  }, []);
+
+  useEffect(() => {
+    try {
+      window.localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(todos));
+    } catch {}
+  }, [todos]);
 
   //완료, 미완료 버튼 누르면 해당 상태만 보여줌
   const filteredTodos = useMemo(() => {
@@ -77,21 +82,22 @@ function App() {
   return (
     <>
       <GlobalStyle />
+      <Container>
+        <GotoDiary>
+          <Link href="/diary">💌 한 줄 일기 📮</Link>
+        </GotoDiary>
 
-      <GotoDiary>
-        <Link href="/diary">💌 한 줄 일기 📮</Link>
-      </GotoDiary>
-
-      <TodoTemplate>
-        <TodoHead todos={todos} setTodos={setTodos} />
-        <TodoList
-          todos={filteredTodos}
-          setTodos={setTodos}
-          todofilter={todofilter}
-          setTodofilter={setTodofilter}
-        />
-        <TodoCreate todos={todos} setTodos={setTodos} />
-      </TodoTemplate>
+        <TodoTemplate>
+          <TodoHead todos={todos} setTodos={setTodos} />
+          <TodoList
+            todos={filteredTodos}
+            setTodos={setTodos}
+            todofilter={todofilter}
+            setTodofilter={setTodofilter}
+          />
+          <TodoCreate todos={todos} setTodos={setTodos} />
+        </TodoTemplate>
+      </Container>
     </>
   );
 }

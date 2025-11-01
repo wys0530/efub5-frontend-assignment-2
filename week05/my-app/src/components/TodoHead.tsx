@@ -37,7 +37,6 @@ const TasksLeft = styled.div`
 const ClearButton = styled.button`
   font-size: 16px;
   margin-top: 40px;
-  font-weight: regular;
   background: rgb(56, 136, 217);
   padding: 6px 12px;
 
