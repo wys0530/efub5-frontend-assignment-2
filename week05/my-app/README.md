@@ -20,7 +20,7 @@
 ![alt text](image-2.png)
 
 - **원인:** Next.js는 서버에서도 렌더링을 하기 때문에,  
-  서버 환경에는 `localStorage`나 `window` 객체가 없음.
+  서버 환경에는 localStorage나 window 객체가 없음.
 - **해결:**
   ```tsx
   if (typeof window === "undefined") return TODO_LIST;
@@ -30,7 +30,7 @@
 
 #### 2. 하이드레이션 오류(Hydration failed...)
 
-    ![alt text](image-1.png)
+![alt text](image-1.png)
 
 - **원인:** 서버에서 렌더된 초기 HTML과 클라이언트 렌더 결과가
   달라서 발생 -> ex. 서버는 할 일 3개 남음, 클라이언트는 localStorage에서 불러온 할 일 4개 남음으로 다를 때 생김
@@ -49,7 +49,7 @@
 
 #### 3. 스타일 깨짐
 
-    ![alt text](image.png)
+![alt text](image.png)
 
 - **원인:** 기존에는 전체가 CSR이라 중앙 정렬이 맞았지만,
   Next.js 구조에서는 TodoTemplate만 가운데 정렬되고
