@@ -4,7 +4,7 @@ import {
   type Db,
   type Collection,
 } from "mongodb";
-import type Post from "../app/models/post";
+import type Post from "@/app/models/post";
 
 const url: string = process.env.NEXT_PUBLIC_DB_CONN_STRING || "";
 const DB_NAME: string = process.env.NEXT_PUBLIC_DB_NAME || "";

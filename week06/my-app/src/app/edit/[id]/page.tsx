@@ -10,22 +10,17 @@ export default async function Edit({
   const result = await postCollection.findOne({ _id: new ObjectId(id) });
 
   return (
-    <div>
-      <h5>수정 페이지</h5>
-      <form action="api/post/edit" method="POST">
-        <input
-          type="text"
-          name="title"
-          placeholder="제목"
-          defaultValue={result?.title}
-        />
+    <div className="p-20">
+      <h4>수정 페이지</h4>
+      <form action="/api/post/edit" method="POST">
+        <input name="title" placeholder="제목" defaultValue={result?.title} />
         <input
           name="content"
           placeholder="내용"
           defaultValue={result?.content}
         />
         <input
-          style={{ display: "none" }} //아이디는 유저에게 안 보이는 것이 좋으니까 none으로 안 보이게 설정
+          style={{ display: "none" }}
           name="_id"
           defaultValue={result?._id.toString()}
         />

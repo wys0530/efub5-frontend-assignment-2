@@ -1,6 +1,6 @@
 import type { NextApiHandler } from "next";
 import { WithId, ObjectId } from "mongodb";
-import type Post from "../../../app/models/post";
+import type Post from "@/app/models/post";
 import { postCollection } from "@/utils/database";
 
 const handler: NextApiHandler<WithId<Post> | { error: string }> = async (
