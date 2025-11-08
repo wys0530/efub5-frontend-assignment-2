@@ -1,6 +1,13 @@
 import NavButtons from "@/components/NavButtons";
+import { authOptions } from "@/pages/api/auth/[...nextauth]";
+import { getServerSession } from "next-auth";
 
-const Write = () => {
+export default async function Write() {
+  let session = await getServerSession(authOptions);
+  if (session) {
+    console.log("Server : ", session);
+  }
+
   return (
     <div className="max-w-xl mx-auto mt-10 bg-white shadow-md rounded-2xl p-8">
       <h5 className="text-2xl font-semibold text-gray-800 mb-6 text-center">
@@ -8,7 +15,7 @@ const Write = () => {
       </h5>
 
       <form
-        action="api/post/create"
+        action="/api/post/create"
         method="POST"
         className="flex flex-col space-y-4"
       >
@@ -39,6 +46,4 @@ const Write = () => {
       <NavButtons />
     </div>
   );
-};
-
-export default Write;
+}
