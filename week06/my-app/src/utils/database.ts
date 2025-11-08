@@ -5,6 +5,7 @@ import {
   type Collection,
 } from "mongodb";
 import type Post from "@/app/models/post";
+import { User } from "@/app/models/user";
 
 const url: string = process.env.NEXT_PUBLIC_DB_CONN_STRING || "";
 const DB_NAME: string = process.env.NEXT_PUBLIC_DB_NAME || "";
@@ -36,3 +37,7 @@ const postCollection: Collection<Post> =
   db.collection<Post>(COLLECTION_POST_NAME);
 
 export { connectDB, postCollection };
+
+export const userCollection = db.collection<User>("users");
+
+export { client, db };

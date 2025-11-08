@@ -3,6 +3,7 @@ import type { WithId } from "mongodb";
 import axios from "axios";
 import Link from "next/link";
 import ListItem from "./ListItem";
+import NavigationButtons from "@/components/NavButtons";
 
 const List = async () => {
   const readPostList = async (): Promise<WithId<Post>[]> => {
@@ -23,6 +24,15 @@ const List = async () => {
   return (
     <div className="list-bg">
       <ListItem result={posts} />
+      <div className="text-left">
+        <Link
+          href="/write"
+          className="inline-block bg-blue-300 hover:bg-blue-600 text-white px-4 py-2 rounded-lg font-medium transition-colors mt-4"
+        >
+          ✏️ 새 글 쓰기
+        </Link>
+      </div>
+      <NavigationButtons />
     </div>
   );
 };
