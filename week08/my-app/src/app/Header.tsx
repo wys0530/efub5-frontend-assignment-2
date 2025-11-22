@@ -5,9 +5,13 @@ import { Session } from "next-auth";
 import LogoutBtn from "./LogoutBtn";
 import ThemeToggle from "./ThemeToggle";
 
-type HeaderProps = { session: Session | null };
+type HeaderProps = {
+  session: Session | null;
+  theme: "light" | "dark";
+  toggleTheme: () => void;
+};
 
-export default function Header({ session }: HeaderProps) {
+export default function Header({ session, theme, toggleTheme }: HeaderProps) {
   return (
     <div className="navbar">
       <Link href="/" className="logo">
@@ -15,7 +19,7 @@ export default function Header({ session }: HeaderProps) {
       </Link>
       <Link href="/list">List</Link>
       <Link href="/write">Write</Link>
-      <ThemeToggle />
+      <ThemeToggle theme={theme} toggleTheme={toggleTheme} />
       {session ? (
         <span>
           <span>{session?.user?.name && `${session.user.name}님 `}</span>

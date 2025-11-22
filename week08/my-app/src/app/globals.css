@@ -46,7 +46,25 @@ body[data-theme="light"] {
   color: black;
 }
 
+body[data-theme="light"] .navbar a,
+body[data-theme="light"] .navbar {
+  background: rgb(213, 242, 255);
+  color: rgb(0, 0, 0);
+}
+
 /* Dark Mode */
+body[data-theme="dark"] .navbar a,
+body[data-theme="dark"] .navbar {
+  background: rgb(57, 57, 57);
+  color: white;
+}
+
+body[data-theme="dark"] .list-item a,
+body[data-theme="dark"] .list-item {
+  background: rgb(9, 0, 56);
+  color: white;
+}
+
 body[data-theme="dark"] {
   background: black;
   color: white;
